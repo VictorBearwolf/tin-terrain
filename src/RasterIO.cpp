@@ -346,7 +346,9 @@ static bool is_valid_projection(GDALDataset* dataset)
 
 bool load_raster_file(const std::string& file_name,
                       RasterDouble& target_raster,
-                      bool validate_projection)
+                      bool validate_projection,
+                      double offset_x,
+                      double offset_y)
 {
     initialize_gdal_once();
 
@@ -418,10 +420,10 @@ bool load_raster_file(const std::string& file_name,
         return false;
     }
 
-    double x1 = gt.origin_x;
-    double y1 = gt.origin_y;
-    double x2 = gt.origin_x + raster_width * gt.scale_x;
-    double y2 = gt.origin_y + raster_height * gt.scale_y;
+    double x1 = gt.origin_x - offset_x;
+    double y1 = gt.origin_y - offset_y;
+    double x2 = gt.origin_x - offset_x + raster_width * gt.scale_x;
+    double y2 = gt.origin_y - offset_y + raster_height * gt.scale_y;
 
     // Ensure raster's origin is exactly at the lower left corner
     target_raster.set_pos_x(std::min(x1, x2));

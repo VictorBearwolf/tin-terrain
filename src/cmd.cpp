@@ -288,6 +288,8 @@ static int subcommand_dem2tin(bool need_help,
         ("output-format", po::value<std::string>()->default_value("auto"), "output file format, can be any of: auto, obj, off, terrain (quantized mesh), json/geojson")
         ("max-error", po::value<double>(), "max error parameter when using terra or zemlya method")
         ("max-iterations", po::value<int>()->default_value(0), "max add point iterations when using terra or zemlya method")
+        ("origin-x", po::value<double>()->default_value(0), "x coord for a new origin point")
+        ("origin-y", po::value<double>()->default_value(0), "y coord for a new origin point")
         ("step", po::value<int>(), "grid spacing in pixels when using dense method")
 #if defined(TNTN_USE_ADDONS) && TNTN_USE_ADDONS
         ("threshold", po::value<double>(), "threshold when using curvature method")
@@ -350,9 +352,21 @@ static int subcommand_dem2tin(bool need_help,
     const std::string method = local_varmap["method"].as<std::string>();
 
     auto raster = std::make_unique<RasterDouble>();
+    double offset_x;
+    double offset_y;
+
+    if(local_varmap.count("origin-x"))
+    {
+        offset_x = local_varmap["origin-x"].as<double>();
+    }
+
+    if(local_varmap.count("origin-y"))
+    {
+        offset_y = local_varmap["origin-y"].as<double>();
+    }
 
     // Import raster file without projection validation
-    if(!load_raster_file(input_file, *raster, false))
+    if(!load_raster_file(input_file, *raster, false, offset_x, offset_y))
     {
         TNTN_LOG_ERROR("Unable to load input file, aborting");
         return false;

@@ -15,5 +15,7 @@ bool write_raster_to_asc(FileLike& f, const RasterDouble& raster);
 
 bool load_raster_file(const std::string& filename,
                       RasterDouble& raster,
-                      bool validate_projection = true);
+                      bool validate_projection = true,
+                      double offset_x = 0,
+                      double offset_y = 0);
 } // namespace tntn
