@@ -138,7 +138,7 @@ void ZemlyaMesh::greedy_insert(double max_error)
     for(int level = 1; level <= m_max_level; level++)
     {
         m_current_level = level;
-        TNTN_LOG_INFO("starting level {}", level);
+        TNTN_LOG_INFO("starting level {}/{}", level, m_max_level);
 
         // Clear m_used
         m_used.set_all(0);

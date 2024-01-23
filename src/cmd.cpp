@@ -364,7 +364,7 @@ static int subcommand_dem2tin(bool need_help,
 
     const auto t_start = std::chrono::high_resolution_clock::now();
 
-    if(method != "terra" && local_varmap.count("max-iterations"))
+    if(method != "terra" && local_varmap["max-iterations"].as<int>() > 0)
     {
         throw po::error("parameter --max-iterations implemented for terra method only");
     }
