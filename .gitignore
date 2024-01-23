@@ -2,7 +2,7 @@
 build*/
 .kdev4/
 *.kdev4
+.vs
 .vscode
 3rdparty/
 scripts/benchmarkcsv2pdf/tin_terrain_benchmarks.csv.pdf
-
