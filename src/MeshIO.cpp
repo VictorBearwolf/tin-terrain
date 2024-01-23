@@ -229,7 +229,7 @@ bool write_mesh_as_obj(FileLike& out_file, const Mesh& m)
     for(const Vertex* v = vertices_range.begin; v != vertices_range.end; v++)
     {
         line_buffer.resize(0);
-        fmt::format_to(line_buffer, "v {:.18f} {:.18f} {:.18f}\n", v->x, v->y, v->z);
+        fmt::format_to(line_buffer, "v {:.18f} {:.18f} {:.18f}\n\n", v->x, v->y, v->z);
         if(!out_file.write(write_pos, line_buffer.data(), line_buffer.size()))
         {
             return false;
@@ -240,7 +240,7 @@ bool write_mesh_as_obj(FileLike& out_file, const Mesh& m)
     for(const Face* f = faces_range.begin; f != faces_range.end; f++)
     {
         line_buffer.resize(0);
-        fmt::format_to(line_buffer, "f {} {} {}\n", (*f)[0] + 1, (*f)[1] + 1, (*f)[2] + 1);
+        fmt::format_to(line_buffer, "f {} {} {}\n\n", (*f)[0] + 1, (*f)[1] + 1, (*f)[2] + 1);
         if(!out_file.write(write_pos, line_buffer.data(), line_buffer.size()))
         {
             return false;
